@@ -1,0 +1,10 @@
+name: WayItems
+version: '${project.version}'
+main: com.wayvi.wayitems.WayItems
+depend: [NBTAPI]
+commands:
+  wayitems:
+    description: Commande pour donner des items spéciaux.
+    usage: /wayitems give <items> <player>
+    permission: wayitems.give
+    permission-message: Vous n'avez pas la permission d'utiliser cette commande.
