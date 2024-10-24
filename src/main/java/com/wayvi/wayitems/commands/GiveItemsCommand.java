@@ -3,9 +3,7 @@ package com.wayvi.wayitems.commands;
 import com.wayvi.wayitems.WayItems;
 import com.wayvi.wayitems.items.SpecialItem;
 import com.wayvi.wayitems.managers.VaultManager;
-import com.wayvi.wayitems.items.HeroSword;
-import com.wayvi.wayitems.items.KamikazeAxe;
-import com.wayvi.wayitems.items.ThiefHoe;
+
 import com.wayvi.wayitems.managers.CooldownManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

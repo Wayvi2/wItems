@@ -34,16 +34,29 @@ public class ItemManager implements Listener {
         Set<Class<? extends SpecialItem>> itemClasses = reflections.getSubTypesOf(SpecialItem.class);
 
 
+        Map<String, Integer> itemCountMap = new HashMap<>();
+
         for (Class<? extends SpecialItem> itemClass : itemClasses) {
             try {
                 SpecialItem item = createSpecialItem(itemClass);
-                specialItems.put(item.getName(), item);
-                plugin.getLogger().info(item.getName() + " has been loaded.");
+                String itemName = item.getName();
+
+                itemCountMap.put(itemName, itemCountMap.getOrDefault(itemName, 0) + 1);
+
+
+                if (itemCountMap.get(itemName) > 1) {
+                    plugin.getLogger().warning("Item " + itemName + " has already been loaded. Skipping further instances.");
+                    continue;
+                }
+
+                specialItems.put(itemName, item);
+                plugin.getLogger().info(itemName + " has been loaded.");
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to load item: " + e.getMessage());
             }
         }
     }
+
 
 
     public <T> Optional<T> getSpecialItemByItemStack(ItemStack item, Class<T> behaviorClass) {
