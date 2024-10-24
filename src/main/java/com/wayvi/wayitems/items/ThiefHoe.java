@@ -3,6 +3,7 @@ package com.wayvi.wayitems.items;
 import com.wayvi.wayitems.WayItems;
 import com.wayvi.wayitems.managers.CooldownManager;
 import com.wayvi.wayitems.managers.VaultManager;
+import com.wayvi.wayitems.modules.interfaces.RightClickBehavior;
 import com.wayvi.wayitems.utils.PlayerUtils;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Material;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-public class ThiefHoe extends SpecialItem {
+public class ThiefHoe extends SpecialItem implements RightClickBehavior {
 
     private final CooldownManager cooldownManager;
     private final VaultManager vaultManager;
@@ -28,6 +29,8 @@ public class ThiefHoe extends SpecialItem {
         this.cooldownManager = plugin.getCooldownManager();
         this.vaultManager = plugin.getVaultManager();
     }
+
+
 
     @Override
     public void onRightClick(Player player) {
@@ -81,30 +84,21 @@ public class ThiefHoe extends SpecialItem {
         cooldownManager.setPlayerCooldown(player.getUniqueId(), 10 * 60);
     }
 
-
-    @Override
-    public void onHit(EntityDamageByEntityEvent event, Player player, Entity entity) {
-        // Pas de logique
-    }
-
-    @Override
-    public void onBlockBreak(Player player, Block block) {
-        // Pas de logique
-    }
-
     public ItemStack getItemStack() {
         ItemStack hoe = new ItemStack(Material.DIAMOND_HOE);
         ItemMeta meta = hoe.getItemMeta();
         if (meta != null) {
             meta.setDisplayName("§7Thief Hoe");
-            meta.setLore(Arrays.asList("§7A hoe for stealing crops."));
+            meta.setLore(List.of("§7A hoe for stealing crops."));
             hoe.setItemMeta(meta);
         }
 
-        // Ajout d'un UUID unique via NBT API
         NBTItem nbtItem = new NBTItem(hoe);
         UUID uniqueID = UUID.randomUUID();
         nbtItem.setString("thief_hoe_id", uniqueID.toString());
+
+
+        nbtItem.setString("type", this.getName());
 
         return nbtItem.getItem();
     }

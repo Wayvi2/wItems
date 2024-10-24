@@ -37,7 +37,7 @@ public class ItemManager implements Listener {
         for (Class<? extends SpecialItem> itemClass : itemClasses) {
             try {
                 SpecialItem item = createSpecialItem(itemClass);
-                specialItems.put(item.getName(), item); // Ici pas besoin de != null car ta methode throw une erreur s'il y a un un soucis et ne renvoie jamais null
+                specialItems.put(item.getName(), item);
                 plugin.getLogger().info(item.getName() + " has been loaded.");
             } catch (Exception e) {
                 plugin.getLogger().warning("Failed to load item: " + e.getMessage());
@@ -46,19 +46,25 @@ public class ItemManager implements Listener {
     }
 
 
-    public Optional<SpecialItem> getSpecialItemByItemStack(ItemStack item) {
+    public <T> Optional<T> getSpecialItemByItemStack(ItemStack item, Class<T> behaviorClass) {
         if (item == null || item.getType() == Material.AIR) return Optional.empty();
 
         NBTItem nbtItem = new NBTItem(item);
-        String type = nbtItem.getString("type"); // Récupérez le type de l'item
+        String type = nbtItem.getString("type");
 
-        // Si le type est présent, on récupére l'item spécial basé sur le type
+        // Si le type est présent, récupère l'item spécial basé sur le type
         if (!type.isEmpty()) {
-            return Optional.ofNullable(specialItems.get(type));
+            SpecialItem specialItem = specialItems.get(type);
+
+            // Vérifie si l'item spécial implémente le comportement recherché
+            if (behaviorClass.isInstance(specialItem)) {
+                return Optional.of(behaviorClass.cast(specialItem));
+            }
         }
 
         return Optional.empty();
     }
+
 
 
     private SpecialItem createSpecialItem(Class<? extends SpecialItem> itemClass) throws Exception {

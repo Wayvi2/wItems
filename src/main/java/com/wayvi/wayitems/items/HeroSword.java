@@ -1,6 +1,7 @@
 package com.wayvi.wayitems.items;
 
 import com.wayvi.wayitems.WayItems;
+import com.wayvi.wayitems.modules.interfaces.HitBehavior;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,16 +14,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Arrays;
 import java.util.List;
 
-public class HeroSword extends SpecialItem {
+public class HeroSword extends SpecialItem implements HitBehavior {
 
-    public HeroSword(WayItems plugin) {
-        super(plugin);
-    }
+    public HeroSword(WayItems plugin) { super(plugin); }
 
-    @Override
-    public void onBlockBreak(Player player, Block block) {
-        // Pas de logique pour casser des blocs
-    }
 
     public boolean isOwner(Player player) {
         ItemStack item = player.getInventory().getItemInHand();
@@ -50,12 +45,6 @@ public class HeroSword extends SpecialItem {
         }
     }
 
-
-
-    @Override
-    public void onRightClick(Player player) {
-        // Pas de logique pour clic droit
-    }
 
     public ItemStack getItemStack() {
         ItemStack sword = new ItemStack(Material.DIAMOND_SWORD);

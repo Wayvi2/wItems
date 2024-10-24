@@ -2,13 +2,9 @@ package com.wayvi.wayitems.items;
 
 import com.wayvi.wayitems.WayItems;
 import com.wayvi.wayitems.utils.VersionUtils;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+
 
 import java.lang.reflect.Method;
 
@@ -16,16 +12,10 @@ public abstract class SpecialItem {
 
     protected final WayItems plugin;
 
-    //pas besoin de mettre le material ici car tu as deja le getItemStack
     public SpecialItem(WayItems plugin) {
        this.plugin = plugin;
     }
 
-    public abstract void onBlockBreak(Player player, Block block);
-
-    public abstract void onHit(EntityDamageByEntityEvent event, Player player, Entity entity);
-
-    public abstract void onRightClick(Player player);
 
     public abstract ItemStack getItemStack();
 
@@ -58,24 +48,6 @@ public abstract class SpecialItem {
         }
     }
 
-
-    protected ItemStack setNBTData(ItemStack item, String key, String value) {
-        try {
-            Object nmsItem = VersionUtils.getNMSItemStack(item);
-            Object tag = nmsItemStackGetTag.invoke(nmsItem);
-
-            if (tag == null) {
-                tag = nbtTagCompoundClass.newInstance();
-            }
-
-            nbtTagCompoundSetString.invoke(tag, key, value);
-            nmsItemStackSetTag.invoke(nmsItem, tag);
-            return VersionUtils.getBukkitItemStack(nmsItem);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return item;
-    }
 
 
     protected String getNBTData(ItemStack item, String key) {

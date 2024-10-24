@@ -15,7 +15,7 @@ public class VersionUtils {
     static {
         try {
             version = getVersion();
-            // Dynamically load CraftItemStack based on the server version
+            // Load dynamiquement CraftItemStack basé sur la version du serveur
             craftItemStackClass = Class.forName("org.bukkit.craftbukkit." + version + ".inventory.CraftItemStack");
             craftItemStackAsNMSCopyMethod = craftItemStackClass.getMethod("asNMSCopy", ItemStack.class);
             craftItemStackAsBukkitCopyMethod = craftItemStackClass.getMethod("asBukkitCopy", Class.forName("net.minecraft.server." + version + ".ItemStack"));
