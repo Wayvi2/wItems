@@ -1,5 +1,5 @@
 
-# WayItems Plugin Documentation
+# wItems Plugin Documentation
 
 
 ## 1) Installation
