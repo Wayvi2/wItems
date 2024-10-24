@@ -5,7 +5,7 @@
 ## 1) Installation
 
 Requis :
-- Version Minecraft 1.8.X --> 1.20.X
+- Version Minecraft 1.8.X --> 1.21.X
 - NBTAPI
 
 Si le prérequis est validé, il faudra simplement glisser le `.jar` du plugin dans */plugins/<plugin>.jar* !
@@ -18,7 +18,7 @@ Si le prérequis est validé, il faudra simplement glisser le `.jar` du plugin d
 
 ## 3) Commandes
 
-- `wayitems give <thiefhoe|herosword|kamikazeaxe> <players>` : Donne un item custom a un joueur
+- `wayitems give <thief_hoe|hero_sword|kamikaze_axe> <players>` : Donne un item custom a un joueur
 
 ## 4) Fonctionnalitées items
 
